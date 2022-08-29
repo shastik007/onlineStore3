@@ -94,6 +94,10 @@ public class ProductService {
         return productRepository.getAllByNextCategory(nextId);
     }
 
+    public List<Products> findProductByModel(String model) {
+        return productRepository.findAllByModelLike(model);
+    }
+
     public Products getById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> {

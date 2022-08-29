@@ -63,6 +63,13 @@ public class ClientApi {
     public List<Products> getAllProduct(@PathVariable Long nextId) {
         return productService.getAllProducts(nextId);
     }
+    
+    @Operation(summary = "search by model")
+    @GetMapping("/products/search")
+    public List<Products> search(@RequestParam String model) {
+        return productService.findProductByModel(model);
+    }
+
 
     @Operation(summary = "get product by id")
     @GetMapping("/product/{id}")
