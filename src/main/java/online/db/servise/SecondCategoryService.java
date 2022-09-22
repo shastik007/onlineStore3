@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -32,19 +33,24 @@ public class SecondCategoryService {
 
     @Transactional
     public SecondCategory updateNextCategory(SecondCategory nextCategory, Long id) {
-        SecondCategory nextCategory1 = nextCategoryRepository.findById(id).get();
-        String oldName = nextCategory1.getName();
+        SecondCategory secondCategory = nextCategoryRepository.findById(id).get();
+        String oldName = secondCategory.getName();
         String newName = nextCategory.getName();
-        if (!oldName.equals(newName)){
-            nextCategory1.setName(newName);
-        }
 
-        return nextCategory1;
+        if (!oldName.equals(newName)) {
+            secondCategory.setName(newName);
+        }
+        if (Objects.nonNull(nextCategory.getImage()))
+        secondCategory.setImage(secondCategory.getImage());
+
+        nextCategoryRepository.save(secondCategory);
+
+        return secondCategory;
     }
 
     public String deleteById(Long id) {
-         nextCategoryRepository.deleteById(id);
-         return "Delete Category successfully";
+        nextCategoryRepository.deleteById(id);
+        return "Delete Category successfully";
     }
 
     public SecondCategory findById(Long id) {

@@ -3,6 +3,7 @@ package online.api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import online.db.model.Basket;
 import online.db.model.FirstCategory;
 import online.db.model.SecondCategory;
@@ -23,8 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/client")
 @CrossOrigin(origins = "*", maxAge = 3600)
-
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Tag(name = "Client", description = "Client accessible apis")
 public class ClientApi {
 

@@ -74,7 +74,7 @@ public class AdminApi {
         return productService.updateProduct(products,id);
     }
 
-    @Operation(summary = "Update product")
+    @Operation(summary = "Delete product")
     @DeleteMapping("/product/{id}")
     public String deletePr(@PathVariable Long id) {
         return productService.deleteProductById(id);

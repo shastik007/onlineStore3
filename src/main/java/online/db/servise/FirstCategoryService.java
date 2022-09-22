@@ -1,15 +1,16 @@
 package online.db.servise;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import online.db.model.FirstCategory;
 import online.db.repository.FirstCategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class FirstCategoryService {
     private FirstCategoryRepository repository;
 
@@ -26,9 +27,14 @@ public class FirstCategoryService {
         FirstCategory fourCategory = repository.findById(id).get();
         String oldName = fourCategory.getNameCategory();
         String newName = products.getNameCategory();
-        if (!oldName.equals(newName)){
+
+        if (!oldName.equals(newName)) {
             fourCategory.setNameCategory(newName);
         }
+        if (Objects.nonNull(products.getImage()))
+            fourCategory.setImage(products.getImage());
+        repository.save(fourCategory);
+
         return fourCategory;
     }
 

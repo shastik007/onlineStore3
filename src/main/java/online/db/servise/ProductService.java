@@ -1,18 +1,17 @@
 package online.db.servise;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import online.db.model.Basket;
-import online.db.model.SecondCategory;
 import online.db.model.Products;
-import online.db.model.User;
+import online.db.model.SecondCategory;
+import online.db.model.dto.ChildOrderDto;
+import online.db.model.dto.MessageResponse;
 import online.db.model.dto.OrderDto;
 import online.db.model.dto.ProductCard;
 import online.db.repository.BasketRepository;
-import online.db.repository.SecondCategoryRepository;
 import online.db.repository.ProductRepository;
+import online.db.repository.SecondCategoryRepository;
 import online.db.repository.UserRepository;
-import online.exceptions.BadRequestException;
-import online.db.model.dto.MessageResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,13 +22,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductService {
 
     private ProductRepository productRepository;
     private SecondCategoryRepository nextCategoryRepository;
     private UserRepository userRepository;
     private BasketRepository basketRepository;
+    private MailSender mailSender;
 
     /**
      * Admin
@@ -78,6 +78,11 @@ public class ProductService {
             oldProduct.setWeight(newW);
         }
 
+        if (Objects.nonNull(products.getImage()))
+            oldProduct.setImage(products.getImage());
+
+        productRepository.save(oldProduct);
+
         return oldProduct;
     }
 
@@ -118,7 +123,6 @@ public class ProductService {
 //        User user = userRepository.getUser(username).orElseThrow(() ->
 //                new NotFoundException(String.format("User with username %s not found", username)));
 
-
         List<ProductCard> productCards = new ArrayList<>();
         order.getOrders().forEach(el -> {
             ProductCard productCard = new ProductCard();
@@ -136,6 +140,30 @@ public class ProductService {
 
         return ResponseEntity.ok(new MessageResponse(String.format("Order with id %s has been added to basket of user",
                 save.getBasketId())));
+    }
+
+    private void sendDataToAdmin(OrderDto orderDto){
+        List<Products> products = findByProductsId(orderDto.getOrders());
+
+        StringBuilder basket = new StringBuilder();
+        String userData = "ФИО: " + orderDto.getFullName() + "Телефон: " + orderDto.getPhoneNumber();
+
+        for (ChildOrderDto order : orderDto.getOrders()) {
+            Products product = productRepository.findById(order.getProductId()).orElseThrow();
+            basket.append("Модел: ").append(product.getModel()).append(", Количество: ").append(order.getCount()).append(", Цена: ").append(product.getPrice()).append("\n");
+        }
+
+        mailSender.sendEmailToAdmin(basket.toString(), userData);
+    }
+
+    private List<Products> findByProductsId(List<ChildOrderDto> orders){
+        List<Products> products = new ArrayList<>();
+
+        for (ChildOrderDto order : orders) {
+            products.add(productRepository.findById(order.getProductId()).orElseThrow());
+        }
+
+        return products;
     }
 
 
