@@ -1,5 +1,6 @@
 package online.db.repository;
 
+import online.db.model.FirstCategory;
 import online.db.model.SecondCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,4 +13,6 @@ public interface SecondCategoryRepository extends JpaRepository<SecondCategory,L
 
     @Query("select b from SecondCategory b where b.firstCategory.id = ?1")
     List<SecondCategory> findAllNext(Long id);
+
+    List<SecondCategory> findByFirstCategory(FirstCategory firstCategory);
 }

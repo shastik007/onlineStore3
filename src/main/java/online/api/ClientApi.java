@@ -8,6 +8,7 @@ import online.db.model.Basket;
 import online.db.model.FirstCategory;
 import online.db.model.Products;
 import online.db.model.SecondCategory;
+import online.db.model.dto.FirstCategoryDto;
 import online.db.model.dto.OrderDto;
 import online.db.repository.BasketRepository;
 import online.db.servise.FirstCategoryService;
@@ -33,7 +34,7 @@ public class ClientApi {
 
     @Operation(summary = "get all four category")
     @GetMapping("/four-category")
-    public List<FirstCategory> getAllFourCategory() {
+    public List<FirstCategoryDto> getAllFourCategory() {
         return fourCategoryService.getAllFourCategory();
     }
 
