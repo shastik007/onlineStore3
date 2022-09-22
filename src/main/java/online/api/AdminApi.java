@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Admin", description = "Admin accessible apis")
 public class AdminApi {
 
-    private ProductService productService;
-    private FirstCategoryService fourCategoryService;
-    private SecondCategoryService nextCategoryService;
+    private final ProductService productService;
+    private final FirstCategoryService fourCategoryService;
+    private final SecondCategoryService nextCategoryService;
 
     @Operation(summary = "Save Category")
     @PostMapping("/first-category")

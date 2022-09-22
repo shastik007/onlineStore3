@@ -12,7 +12,7 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class FirstCategoryService {
-    private FirstCategoryRepository repository;
+    private final FirstCategoryRepository repository;
 
     public FirstCategory save(FirstCategory category) {
         return repository.save(category);
