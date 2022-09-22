@@ -34,6 +34,7 @@ public class FirstCategoryService {
                     String.format("not-found id: ", id)
             );
         });
+
         String oldName = fourCategory.getNameCategory();
         String newName = products.getNameCategory();
 

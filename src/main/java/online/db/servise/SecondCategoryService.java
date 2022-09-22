@@ -36,6 +36,7 @@ public class SecondCategoryService {
 
     @Transactional
     public SecondCategory updateNextCategory(SecondCategory nextCategory, Long id) {
+
         SecondCategory secondCategory = nextCategoryRepository.findById(id).get();
         String oldName = secondCategory.getName();
         String newName = nextCategory.getName();
@@ -43,8 +44,9 @@ public class SecondCategoryService {
         if (!oldName.equals(newName)) {
             secondCategory.setName(newName);
         }
+
         if (Objects.nonNull(nextCategory.getImage()))
-        secondCategory.setImage(secondCategory.getImage());
+            secondCategory.setImage(nextCategory.getImage());
 
         nextCategoryRepository.save(secondCategory);
 
