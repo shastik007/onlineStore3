@@ -1,5 +1,7 @@
 package online.api;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import online.config.security.JwtResponse;
 import online.config.security.LoginRequest;
 import online.config.security.jwt.JwtUtils;
@@ -26,9 +28,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/auth")
 @AllArgsConstructor
 @Tag(name = "AuthController", description = "jwt token,")
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthApi {
 
-    private ClientService clientService;
+    ClientService clientService;
     AuthenticationManager authenticationManager;
     JwtUtils jwtUtils;
 

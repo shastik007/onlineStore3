@@ -14,15 +14,15 @@ public class MailSenderToAdmin {
 
     JavaMailSender javaMailSender;
 
-    public void sendEmailToAdmin(String reviewBasket, String dataUser){
+    public void sendEmailToAdmin(String reviewBasket, String dataUser) {
 
         String massage = dataUser + '\n'
-                +"Карзина: "+ reviewBasket;
+                + "Карзина: " + reviewBasket;
 
         send(massage, "testonlinestoret2@gmail.com");
     }
 
-    public void send(String massage, String email){
+    public void send(String massage, String email) {
 
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 
@@ -31,11 +31,7 @@ public class MailSenderToAdmin {
         simpleMailMessage.setSubject("Заказ");
         simpleMailMessage.setText(massage);
 
-        try{
-            javaMailSender.send(simpleMailMessage);
-        }catch (Exception e){
-
-        }
+        javaMailSender.send(simpleMailMessage);
     }
 
 }

@@ -2,7 +2,9 @@ package online.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import online.db.model.FirstCategory;
 import online.db.model.SecondCategory;
 import online.db.model.Products;
@@ -18,11 +20,12 @@ import org.springframework.web.bind.annotation.*;
 @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 @AllArgsConstructor
 @Tag(name = "Admin", description = "Admin accessible apis")
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AdminApi {
 
-    private final ProductService productService;
-    private final FirstCategoryService fourCategoryService;
-    private final SecondCategoryService nextCategoryService;
+    ProductService productService;
+    FirstCategoryService fourCategoryService;
+    SecondCategoryService nextCategoryService;
 
     @Operation(summary = "Save Category")
     @PostMapping("/first-category")

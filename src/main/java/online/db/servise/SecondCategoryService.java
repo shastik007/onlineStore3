@@ -1,6 +1,8 @@
 package online.db.servise;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import online.db.model.FirstCategory;
 import online.db.model.SecondCategory;
 import online.db.repository.FirstCategoryRepository;
@@ -13,10 +15,11 @@ import java.util.Objects;
 
 @Service
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class SecondCategoryService {
 
-    private final SecondCategoryRepository nextCategoryRepository;
-    private final FirstCategoryRepository fourCategoryRepository;
+    SecondCategoryRepository nextCategoryRepository;
+    FirstCategoryRepository fourCategoryRepository;
 
     public SecondCategory save(SecondCategory category, Long id) {
 
