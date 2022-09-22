@@ -20,10 +20,7 @@ import java.util.List;
 @Builder
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "user_seq")
-    @SequenceGenerator(name = "user_seq",
-            sequenceName = "SEQ_USER", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
     private Long id;
 

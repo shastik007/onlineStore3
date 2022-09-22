@@ -16,8 +16,7 @@ import java.util.List;
 public class Basket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_seq")
-    @SequenceGenerator(name = "hibernate_seq", sequenceName = "basket_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "basket_id")
     private Long basketId;
 

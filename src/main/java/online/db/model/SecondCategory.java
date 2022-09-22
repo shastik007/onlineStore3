@@ -15,8 +15,7 @@ import java.util.List;
 public class SecondCategory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_seq")
-    @SequenceGenerator(name = "hibernate_seq", sequenceName = "category_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
