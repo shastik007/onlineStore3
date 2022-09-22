@@ -6,17 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import online.db.model.Basket;
 import online.db.model.FirstCategory;
-import online.db.model.SecondCategory;
 import online.db.model.Products;
+import online.db.model.SecondCategory;
 import online.db.model.dto.OrderDto;
 import online.db.repository.BasketRepository;
 import online.db.servise.FirstCategoryService;
-import online.db.servise.SecondCategoryService;
 import online.db.servise.ProductService;
+import online.db.servise.SecondCategoryService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,14 +21,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/client")
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequiredArgsConstructor
+
+@AllArgsConstructor
 @Tag(name = "Client", description = "Client accessible apis")
 public class ClientApi {
 
-    private ProductService productService;
-    private FirstCategoryService fourCategoryService;
-    private SecondCategoryService nextCategoryService;
-    private BasketRepository basketRepository;
+    private final ProductService productService;
+    private final FirstCategoryService fourCategoryService;
+    private final SecondCategoryService nextCategoryService;
+    private final BasketRepository basketRepository;
 
     @Operation(summary = "get all four category")
     @GetMapping("/four-category")

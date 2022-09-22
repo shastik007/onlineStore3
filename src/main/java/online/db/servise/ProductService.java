@@ -1,6 +1,8 @@
 package online.db.servise;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import online.db.model.Basket;
 import online.db.model.Products;
 import online.db.model.SecondCategory;
@@ -23,13 +25,14 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProductService {
 
-    private ProductRepository productRepository;
-    private SecondCategoryRepository nextCategoryRepository;
-    private UserRepository userRepository;
-    private BasketRepository basketRepository;
-    private MailSender mailSender;
+    ProductRepository productRepository;
+    SecondCategoryRepository nextCategoryRepository;
+    UserRepository userRepository;
+    BasketRepository basketRepository;
+    MailSenderToAdmin mailSender;
 
     /**
      * Admin
