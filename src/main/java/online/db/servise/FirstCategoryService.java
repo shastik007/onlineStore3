@@ -29,6 +29,7 @@ public class FirstCategoryService {
 
     @Transactional
     public FirstCategory updateCategory(FirstCategory products, Long id) {
+
         FirstCategory fourCategory = repository.findById(id).orElseThrow(() -> {
             throw new NotFoundException(
                     String.format("not-found id: ", id)
