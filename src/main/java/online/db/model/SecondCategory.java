@@ -25,7 +25,6 @@ public class SecondCategory {
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "first_category_id")
     private FirstCategory firstCategory;
 
 
