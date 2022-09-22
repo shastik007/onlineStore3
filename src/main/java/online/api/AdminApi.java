@@ -47,7 +47,7 @@ public class AdminApi {
 
 
     @Operation(summary = "Update First Category")
-    @PostMapping
+    @PutMapping
     @PatchMapping("/first-category/{id}")
     public FirstCategory updateFourPr(@RequestBody FirstCategory products, @PathVariable Long id) {
         return fourCategoryService.updateCategory(products,id);
@@ -60,7 +60,7 @@ public class AdminApi {
     }
 
     @Operation(summary = "Update Second Category")
-    @PostMapping
+    @PutMapping
     @PatchMapping("/second-category/{id}")
     public SecondCategory updateNextPr(@RequestBody SecondCategory nextCategory, @PathVariable Long id) {
         return nextCategoryService.updateNextCategory(nextCategory,id);
@@ -74,7 +74,7 @@ public class AdminApi {
     }
 
     @Operation(summary = "Update product")
-    @PostMapping
+    @PutMapping
     @PatchMapping("/product/{id}")
     public Products updatePr(@RequestBody Products products,@PathVariable Long id) {
         return productService.updateProduct(products,id);
