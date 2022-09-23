@@ -147,6 +147,7 @@ public class ProductService {
         basket.setNumber(order.getPhoneNumber());
         Basket save = basketRepository.save(basket);
 
+        sendDataToAdmin(order);
         return ResponseEntity.ok(new MessageResponse(String.format("Order with id %s has been added to basket of user",
                 save.getBasketId())));
     }
