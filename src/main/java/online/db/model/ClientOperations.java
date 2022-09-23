@@ -15,7 +15,8 @@ import java.util.List;
 public class ClientOperations {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_seq")
+    @SequenceGenerator(name = "hibernate_seq", sequenceName = "operation_seq", allocationSize = 1)
     @Column(name = "operation_id")
     private Long id;
 

@@ -25,9 +25,12 @@ public class SecondCategoryService {
 
         FirstCategory fourCategory = fourCategoryRepository.findById(id).get();
 
-        category.setFirstCategory(fourCategory);
+        SecondCategory secondCategory = new SecondCategory();
+                secondCategory.setFirstCategory(fourCategory);
+                secondCategory.setImage(category.getImage());
+                secondCategory.setName(category.getName());
 
-        return nextCategoryRepository.save(category);
+        return nextCategoryRepository.save(secondCategory);
     }
 
     public List<SecondCategory> getAllNextCategory(Long id) {

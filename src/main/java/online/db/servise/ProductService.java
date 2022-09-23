@@ -41,10 +41,16 @@ public class ProductService {
     public Products saveProduct(Products products, Long id) {
 
         SecondCategory nextCategory = nextCategoryRepository.findById(id).get();
+        Products entity = new Products();
+         entity.setPrice(products.getPrice());
+         entity.setImage(products.getImage());
+         entity.setManufacturer(products.getManufacturer());
+         entity.setModel(products.getModel());
+         entity.setAbout(products.getAbout());
+         entity.setWeight(products.getWeight());
+         entity.setSecondCategory(nextCategory);
 
-        products.setSecondCategory(nextCategory);
-
-        return productRepository.save(products);
+        return productRepository.save(entity);
     }
 
     @Transactional

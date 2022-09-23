@@ -13,7 +13,8 @@ import java.util.List;
 public class FirstCategory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_seq")
+    @SequenceGenerator(name = "hibernate_seq", sequenceName = "four_category_seq", allocationSize = 1)
     private Long id;
 
     private String nameCategory;
