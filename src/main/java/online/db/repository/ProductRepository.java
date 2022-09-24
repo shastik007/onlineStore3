@@ -18,6 +18,6 @@ public interface ProductRepository extends JpaRepository<Products,Long> {
 
     List<Products> findAllByModelLike(String model);
 
-    @Query(value = "select b from Products b where b.model like " +"%"+":model"+"%")
+    @Query(value = "select b from Products b where lower( b.model) like " +"%"+"lower(:model)"+"%")
     List<Products> findAllByModel(String model);
 }
