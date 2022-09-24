@@ -14,10 +14,10 @@ public class MailSenderToAdmin {
 
     JavaMailSender javaMailSender;
 
-    public void sendEmailToAdmin(String reviewBasket, String dataUser) {
+    public void sendEmailToAdmin(String reviewBasket, String dataUser, Double totalPrice) {
 
         String massage = dataUser + '\n'
-                + "Карзина: " + reviewBasket;
+                + "Карзина: " + reviewBasket + '\n' + "Общая цена: " + totalPrice;
 
         send(massage, "testonlinestoret2@gmail.com");
     }

@@ -169,13 +169,15 @@ public class ProductService {
         String address = orderDto.getAddress() != null ? orderDto.getAddress() : "";
         StringBuilder basket = new StringBuilder();
         String userData = "ФИО: " + orderDto.getFullName() + ", Телефон: " + orderDto.getPhoneNumber() + ", Коммент: " + comment + ", Адрес: " + address;
+        Double totalPrice = 0D;
 
         for (ChildOrderDto order : orderDto.getOrders()) {
             Products product = productRepository.findById(order.getProductId()).orElseThrow();
+            totalPrice += product.getPrice();
             basket.append("Модел: ").append(product.getModel()).append(", Количество: ").append(order.getCount()).append(", Цена: ").append(product.getPrice()).append("\n");
         }
 
-        mailSender.sendEmailToAdmin(basket.toString(), userData);
+        mailSender.sendEmailToAdmin(basket.toString(), userData, totalPrice);
     }
 
     private List<Products> findByProductsId(List<ChildOrderDto> orders) {
