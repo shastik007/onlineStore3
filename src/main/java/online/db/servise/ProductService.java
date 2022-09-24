@@ -42,13 +42,13 @@ public class ProductService {
 
         SecondCategory nextCategory = nextCategoryRepository.findById(id).get();
         Products entity = new Products();
-         entity.setPrice(products.getPrice());
-         entity.setImage(products.getImage());
-         entity.setManufacturer(products.getManufacturer());
-         entity.setModel(products.getModel());
-         entity.setAbout(products.getAbout());
-         entity.setWeight(products.getWeight());
-         entity.setSecondCategory(nextCategory);
+        entity.setPrice(products.getPrice());
+        entity.setImage(products.getImage());
+        entity.setManufacturer(products.getManufacturer());
+        entity.setModel(products.getModel());
+        entity.setAbout(products.getAbout());
+        entity.setWeight(products.getWeight());
+        entity.setSecondCategory(nextCategory);
 
         return productRepository.save(entity);
     }
@@ -145,6 +145,8 @@ public class ProductService {
         basket.setFullName(order.getFullName());
         basket.setProductCards(productCards);
         basket.setNumber(order.getPhoneNumber());
+        basket.setAddress(order.getAddress());
+        basket.setComment(order.getComment());
         Basket save = basketRepository.save(basket);
 
         sendDataToAdmin(order);
@@ -152,11 +154,13 @@ public class ProductService {
                 save.getBasketId())));
     }
 
-    private void sendDataToAdmin(OrderDto orderDto){
+    private void sendDataToAdmin(OrderDto orderDto) {
         List<Products> products = findByProductsId(orderDto.getOrders());
 
+        String comment = orderDto.getComment() != null ? orderDto.getComment() : "";
+        String address = orderDto.getAddress() != null ? orderDto.getAddress() : "";
         StringBuilder basket = new StringBuilder();
-        String userData = "ФИО: " + orderDto.getFullName() + "Телефон: " + orderDto.getPhoneNumber();
+        String userData = "ФИО: " + orderDto.getFullName() + ", Телефон: " + orderDto.getPhoneNumber() + ", Коммент: " + comment + ", Адрес: " + address;
 
         for (ChildOrderDto order : orderDto.getOrders()) {
             Products product = productRepository.findById(order.getProductId()).orElseThrow();
@@ -166,7 +170,7 @@ public class ProductService {
         mailSender.sendEmailToAdmin(basket.toString(), userData);
     }
 
-    private List<Products> findByProductsId(List<ChildOrderDto> orders){
+    private List<Products> findByProductsId(List<ChildOrderDto> orders) {
         List<Products> products = new ArrayList<>();
 
         for (ChildOrderDto order : orders) {

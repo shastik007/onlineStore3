@@ -33,6 +33,10 @@ public class Basket {
 
     private String number;
 
+    private String address;
+
+    private String comment;
+
     public void clear() {
         productCards.removeIf(books -> true);
     }
