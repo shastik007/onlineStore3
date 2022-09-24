@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -108,8 +109,18 @@ public class ProductService {
         return productRepository.getAllByNextCategory(nextId);
     }
 
-    public List<Products> findProductByModel(String model) {
-        return productRepository.findAllByModelLike(model);
+    public HashSet<Products> findProductByModel(String model) {
+        List<Products> likeModel = productRepository.findAllByModel(model);
+        List<Products> allProduct = productRepository.findAll();
+        List<Products> toSearch = new ArrayList<>();
+
+        for (Products products : allProduct) {
+            if (products.getModel().equalsIgnoreCase(model))
+                toSearch.add(products);
+        }
+        toSearch.addAll(likeModel);
+
+        return new HashSet<>(toSearch);
     }
 
     public Products getById(Long id) {

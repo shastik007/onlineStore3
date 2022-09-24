@@ -17,4 +17,7 @@ public interface ProductRepository extends JpaRepository<Products,Long> {
     List<Products> getAllByNextCategory(Long id);
 
     List<Products> findAllByModelLike(String model);
+
+    @Query(nativeQuery = true, value = "select b from products b where b.model like %:model%")
+    List<Products> findAllByModel(String model);
 }

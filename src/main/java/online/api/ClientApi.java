@@ -17,6 +17,7 @@ import online.db.servise.SecondCategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -65,7 +66,7 @@ public class ClientApi {
     
     @Operation(summary = "search by model")
     @GetMapping("/products/search")
-    public List<Products> search(@RequestParam String model) {
+    public HashSet<Products> search(@RequestParam String model) {
         return productService.findProductByModel(model);
     }
 
