@@ -173,7 +173,7 @@ public class ProductService {
 
         for (ChildOrderDto order : orderDto.getOrders()) {
             Products product = productRepository.findById(order.getProductId()).orElseThrow();
-            totalPrice += (product.getPrice() != null ? product.getPrice() : 1D*order.getCount() != 0D ? order.getCount() : 1D);
+            totalPrice += ((product.getPrice() != null ? product.getPrice() : 1D)*(order.getCount() != 0D ? order.getCount() : 1D));
             basket.append("Модел: ").append(product.getModel()).append(", Количество: ").append(order.getCount()).append(", Цена: ").append(product.getPrice()).append("\n");
         }
 
