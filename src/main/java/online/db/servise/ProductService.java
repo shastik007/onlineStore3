@@ -19,10 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.webjars.NotFoundException;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -110,7 +107,7 @@ public class ProductService {
     }
 
     public HashSet<Products> findProductByModel(String model) {
-        List<Products> likeModel = productRepository.findAllByModel(model);
+        List<Products> likeModel = productRepository.findAllByModel(model.toLowerCase(Locale.ROOT));
         List<Products> allProduct = productRepository.findAll();
         List<Products> toSearch = new ArrayList<>();
 
